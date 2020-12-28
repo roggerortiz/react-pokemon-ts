@@ -1,31 +1,20 @@
-import React, { useState } from 'react';
-import { useDispatch, useSelector } from 'react-redux';
-import { GetPokemon } from './actions/PokemonActions';
-import { PokemonAbility } from './actions/PokemonActionTypes';
+import React from 'react';
+import { NavLink, Redirect, Route, Switch } from 'react-router-dom';
 import './App.css';
-import { RootStore } from './store';
+import Pokemon from './views/Pokemon';
+import PokemonList from './views/PokemonList';
 
 function App() {
-  const dispatch = useDispatch()
-  const [pokemonName, setPokemonName] = useState("")
-  const pokemonState = useSelector((state: RootStore) => state.pokemon)
-  const handleChange = (event: React.ChangeEvent<HTMLInputElement>) => setPokemonName(event.target.value)
-  const handleSubmit = () => dispatch(GetPokemon(pokemonName))
-
   return (
     <div className="App">
-      <input type="text" onChange={handleChange}/>
-      <button onClick={handleSubmit}>Search</button>
-      {
-        pokemonState.pokemon && (
-          <div>
-            <img src={pokemonState.pokemon.sprites.front_default} alt=""/>
-            {pokemonState.pokemon.abilities.map((ability: PokemonAbility, index: number) => {
-              return <p key={`ability-${index}`}>{ability.ability.name}</p>
-            })}
-          </div>
-        )
-      }
+      <nav>
+        <NavLink to={"/"}>Search</NavLink>
+      </nav>
+      <Switch>
+        <Route exact path={"/"} component={PokemonList} />
+        <Route exact path={"/pokemon/:pokemon"} component={Pokemon} />
+        <Redirect to="/" />
+      </Switch>
     </div>
   );
 }

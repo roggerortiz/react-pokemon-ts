@@ -1,42 +1,71 @@
+export const POKEMON_LIST_LOADING = 'POKEMON_LIST_LOADING';
+export const POKEMON_LIST_SUCCESS = 'POKEMON_LIST_SUCCESS';
+export const POKEMON_LIST_FAIL = 'POKEMON_LIST_FAIL';
 export const POKEMON_LOADING = 'POKEMON_LOADING';
 export const POKEMON_SUCCESS = 'POKEMON_SUCCESS';
 export const POKEMON_FAIL = 'POKEMON_FAIL';
 
-export type PokemonAbility = {
+export type TPokemonList = {
+    name: string,
+    url: string
+}
+
+export type TPokemonAbility = {
     ability: {
         name: string,
         url: string
     }
 }
 
-export type PokemonSprites =  {
-    front_default: string
+export type TPokemonSprites =  {
+    front_default: string,
+    back_default: string,
+    front_shiny: string,
+    back_shiny: string
 }
 
-export type PokemonStat = {
+export type TPokemonStat = {
     base_stat: string,
     stat: {
         name: string
     }
 }
 
-export type PokemonInfo = {
-    abilities: PokemonAbility[],
-    sprites: PokemonSprites,
-    stats: PokemonStat[]
+export type TPokemonInfo = {
+    abilities: TPokemonAbility[],
+    sprites: TPokemonSprites,
+    stats: TPokemonStat[]
 }
 
-export interface PokemonLoading {
+export interface IPokemonListLoading {
+    type: typeof POKEMON_LIST_LOADING
+}
+
+export interface IPokemonListSuccess {
+    type: typeof POKEMON_LIST_SUCCESS,
+    payload: {
+        results: TPokemonList[],
+        count: number
+    }
+}
+
+export interface IPokemonListFail {
+    type: typeof POKEMON_LIST_FAIL
+}
+
+export interface IPokemonLoading {
     type: typeof POKEMON_LOADING
 }
 
-export interface PokemonSuccess {
+export interface IPokemonSuccess {
     type: typeof POKEMON_SUCCESS,
-    payload: PokemonInfo
+    payload: TPokemonInfo
 }
 
-export interface PokemonFail {
+export interface IPokemonFail {
     type: typeof POKEMON_FAIL
 }
 
-export type PokemonDispatchTypes = PokemonLoading | PokemonSuccess | PokemonFail
+export type TPokemonDispatchTypes =
+    IPokemonListLoading | IPokemonListSuccess | IPokemonListFail |
+    IPokemonLoading | IPokemonSuccess | IPokemonFail
