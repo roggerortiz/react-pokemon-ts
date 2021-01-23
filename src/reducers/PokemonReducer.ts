@@ -6,18 +6,18 @@ import {
     POKEMON_SUCCESS
 } from "../actions/PokemonActionTypes"
 
-interface IDefaultState {
+export interface IPokemonState {
     loading: boolean,
     pokemon?: TPokemonInfo,
     errorMsg: string
 }
 
-const defaultState : IDefaultState = {
+const defaultState : IPokemonState = {
     loading: false,
     errorMsg: ""
 }
 
-const pokemonReducer = (state : IDefaultState = defaultState, action: TPokemonDispatchTypes) : IDefaultState => {
+const pokemonReducer = (state : IPokemonState = defaultState, action: TPokemonDispatchTypes) : IPokemonState => {
     if (state === undefined)
         return defaultState
 

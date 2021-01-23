@@ -1,5 +1,6 @@
 import axios from "axios";
 import { Dispatch } from "redux";
+import { RootState } from "../reducers/RootReducer";
 import {
     TPokemonDispatchTypes,
     POKEMON_FAIL,
@@ -10,8 +11,9 @@ import {
     POKEMON_SUCCESS
 } from "./PokemonActionTypes";
 
-export const GetPokemonList = (page: number) => async (dispatch: Dispatch<TPokemonDispatchTypes>) => {
+export const GetPokemonList = (page: number) => async (dispatch: Dispatch<TPokemonDispatchTypes>, getState: () => RootState)=> {
     try{
+        console.log("STATE: ", getState());
         dispatch({ type: POKEMON_LIST_LOADING })
         const perPage = 15
         const offset = (page * 15) - perPage
